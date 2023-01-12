@@ -9,7 +9,7 @@ import { createEmotionCache } from '../utils/create-emotion-cache';
 import { registerChartJs } from '../utils/register-chart-js';
 import { theme } from '../theme';
 
-import Login from './login.js';
+import Login from './Login';
 
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Fragment } from 'react';
