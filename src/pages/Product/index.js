@@ -1,15 +1,15 @@
 import Head from 'next/head';
 import { Box, Container, Grid, Pagination } from '@mui/material';
-import { ProductListToolbar } from '../components/product/product-list-toolbar';
-import { DashboardLayout } from '../components/dashboard-layout';
-import ProductList from '../components/product/product-list';
+import { ProductListToolbar } from '../../components/product/product-list-toolbar';
+import { DashboardLayout } from '../../components/dashboard-layout';
+import ProductList from '../../components/product/product-list';
 import { maxWidth } from '@mui/system';
 
 const Page = () => (
     <>
         <Head>
             <title>
-                Products | De hilos y perlas
+                Lista de productos | De hilos y perlas
             </title>
         </Head>
         <Box
@@ -30,19 +30,6 @@ const Page = () => (
                     >
                         <ProductList />
                     </Grid>
-                </Box>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        pt: 3
-                    }}
-                >
-                    <Pagination
-                        color="primary"
-                        count={3}
-                        size="small"
-                    />
                 </Box>
             </Container>
         </Box>

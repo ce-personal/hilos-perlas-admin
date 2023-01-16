@@ -16,9 +16,9 @@ import env from './../__mocks__/env';
 import axios from 'axios';
 
 const Register = () => {
-    const sendRegister = async (name, lastName, email) => {
+    const sendRegister = async (firstName, lastName, email) => {
         const action = `${env.API_URL}/Account/Register`;
-        const response = await axios.post(action + `?name=${name + ' ' + lastName}&email=${email}`);
+        const response = await axios.post(action + `?firstName=${firstName}&lastName=${lastName}&email=${email}`);
 
         if (response.data.isSuccess) {
             return Router

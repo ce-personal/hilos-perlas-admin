@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import { Container, Typography } from '@mui/material';
-import { NewProductDetails } from '../components/new-product/new-product-details';
-import { DashboardLayout } from '../components/dashboard-layout';
+import { NewProductDetails } from '../../components/new-product/new-product-details';
+import { DashboardLayout } from '../../components/dashboard-layout';
 
-import ShopProductCard from './../components/product/product-card';
+import ShopProductCard from '../../components/product/product-card';
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -22,7 +22,8 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 
-import env from './../__mocks__/env';
+import env from '../../__mocks__/env';
+import Router from 'next/router';
 
 
 const saveProduct = async (value) => {
@@ -34,6 +35,8 @@ const saveProduct = async (value) => {
 
     const response = await axios.post(`${env.API_URL}/Product/Create`, formData);
     await saveImageProduct(response.data.id);
+
+    Router.push("/Product");
 };
 
 
@@ -82,11 +85,16 @@ const Page = () => {
         onSubmit: saveProduct
     });
 
+    const product = {
+        product: { name: formik.values.name, price: formik.values.price, status: 'Nuevo',  isEditable: true },
+        files: [ { stringFile: '/static/images/products/product_1.jpg', isItMainFile: true, isDefault: true  } ]
+    };
+
     return (
         <>
             <Head>
                 <title>
-                    Account | De hilos y perlas
+                    Nuevo producto | De hilos y perlas
                 </title>
             </Head>
             <Box
@@ -113,7 +121,7 @@ const Page = () => {
                             md={6}
                             xs={12}
                         >
-                            <ShopProductCard product={{ name: formik.values.name, price: formik.values.price, status: 'Nuevo', cover: '/static/images/products/product_1.jpg', isEditable: true }} />
+                            <ShopProductCard product={product} />
                         </Grid>
 
 
@@ -224,10 +232,9 @@ const Page = () => {
                                                     control={(
                                                         <Checkbox
                                                             color="primary"
-                                                            defaultChecked
                                                             name='uniquePiece'
 
-                                                            value={formik.values.uniquePiece}
+                                                            checked={formik.values.uniquePiece && formik.values.quantity <= 1}
                                                             onChange={formik.handleChange}
                                                         />
                                                     )}

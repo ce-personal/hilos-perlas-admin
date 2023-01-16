@@ -28,7 +28,7 @@ const items = [
         title: 'Personal'
     },
     {
-        href: '/Products',
+        href: '/Product',
         icon: (<ShoppingBagIcon fontSize="small" />),
         title: 'Productos'
     },

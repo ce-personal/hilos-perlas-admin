@@ -49,7 +49,7 @@ export const ProductListToolbar = (props) => (
                     Exportar
                 </Button>
                 
-                <NextLink href={"/NewProduct"}>
+                <NextLink href={"/Product/Create"}>
                     <Button
                         color="primary"
                         variant="contained"
