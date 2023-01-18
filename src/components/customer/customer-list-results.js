@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
@@ -21,10 +21,10 @@ export const CustomerListResults = ({ ...rest }) => {
     const [customers, setCustomers] = useState([]);
 
 
-    if (customers.length == 0) {
+    useEffect(() => {
         getCustomers()
             .then(a => setCustomers(a));
-    };
+    }, [])
 
     return (
         <Card {...rest}>
@@ -56,13 +56,13 @@ export const CustomerListResults = ({ ...rest }) => {
                                                 src={customer.avatarUrl}
                                                 sx={{ mr: 2 }}
                                             >
-                                                {getInitials(customer.name)}
+                                                {getInitials(customer.firstName + ' ' + customer.lastName)}
                                             </Avatar>
                                             <Typography
                                                 color="textPrimary"
                                                 variant="body1"
                                             >
-                                                {customer.name}
+                                                {customer.firstName + ' ' + customer.lastName}
                                             </Typography>
                                         </Box>
                                     </TableCell>

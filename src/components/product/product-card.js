@@ -172,7 +172,6 @@ export default function ShopProductCard({ product }) {
 
     useEffect(() => {
         init();
-    // }, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
     });
 
     return (
@@ -220,7 +219,7 @@ export default function ShopProductCard({ product }) {
 
                 <Stack direction="row" alignItems="center" justifyContent="space-between">
                     <Typography variant="subtitle1">
-                        {price}
+                        C$ {price}
                     </Typography>
 
                     {

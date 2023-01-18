@@ -3,9 +3,9 @@ import { Grid } from '@mui/material';
 import ShopProductCard from './product-card';
 import { useEffect, useState } from 'react';
 
-import listProduct from './../../__mocks__/products';
 
 import axios from 'axios';
+import { getProducts } from './../../__mocks__/products';
 import env from './../../__mocks__/env';
 
 // ----------------------------------------------------------------------
@@ -16,8 +16,8 @@ export default function ProductList({ ...other }) {
     const loadProducts = async () => {
         if (products.length > 0) return;
         
-        const response = await axios.get(`${env.API_URL}/Product/GetListProduct`);
-        setProducts(response.data);
+        const response = await getProducts();
+        setProducts(response);
     };
 
     useEffect(() => {

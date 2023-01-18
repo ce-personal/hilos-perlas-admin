@@ -1,14 +1,14 @@
 import Head from 'next/head';
 import { Box, Container } from '@mui/material';
-import { CustomerListResults } from '../components/customer/customer-list-results';
-import { CustomerListToolbar } from '../components/customer/customer-list-toolbar';
-import { DashboardLayout } from '../components/dashboard-layout';
+import { CateogoryListResults } from '../../components/category/category-list-results';
+import { CategoryListToolbar } from '../../components/category/category-list-toolbar';
+import { DashboardLayout } from '../../components/dashboard-layout';
 
 const Page = () => (
     <>
         <Head>
             <title>
-                Personal | De hilos y perlas
+                Categoria | De hilos y perlas
             </title>
         </Head>
         <Box
@@ -19,9 +19,9 @@ const Page = () => (
             }}
         >
             <Container maxWidth={null} >
-                <CustomerListToolbar />
+                <CategoryListToolbar />
                 <Box sx={{ mt: 3 }}>
-                    <CustomerListResults customers={[]} />
+                    <CateogoryListResults customers={[]} />
                 </Box>
             </Container>
         </Box>

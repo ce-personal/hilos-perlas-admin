@@ -2,15 +2,15 @@ import Head from 'next/head';
 import React from 'react';
 
 import { Box, Container, Grid, Typography, Snackbar } from '@mui/material';
-import { AccountProfile } from '../components/account/account-profile';
-import { AccountProfileDetails } from '../components/account/account-profile-details';
-import { DashboardLayout } from '../components/dashboard-layout';
+import { AccountProfile } from '../../components/account/account-profile';
+import { AccountProfileDetails } from '../../components/account/account-profile-details';
+import { DashboardLayout } from '../../components/dashboard-layout';
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 
-import env from './../__mocks__/env';
+import env from '../../__mocks__/env';
 import { useEffect, useState } from 'react';
 
 import MuiAlert from '@mui/material/Alert';
@@ -28,7 +28,8 @@ const Page = () => {
             lastName: '',
             email: '',
             phoneNumber: "",
-            stringFile: ''
+            stringFile: '',
+            password: ''
         },
         validationSchema: Yup.object({
             firstName: Yup
@@ -39,7 +40,7 @@ const Page = () => {
             email: Yup  
                 .string()
                 .email("Debe ser un correo valido")
-                .required("Email es un campo requerido")
+                .required("Email es un campo requerido"),
         }),
 
         onSubmit: (value) => sendAccount(value)

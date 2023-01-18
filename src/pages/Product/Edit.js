@@ -72,10 +72,11 @@ const Page = () => {
         initialValues: {
             name: '',
             description: '',
-            price: '',
+            price: 0,
+            price: 0,
+            equityPrice: 0,
             quantity: 0,
-            uniquePiece: false,
-            isCustomProduct: false
+            isCustomProduct: false,
         },
         validationSchema: Yup.object({
             name: Yup
@@ -83,6 +84,12 @@ const Page = () => {
                 .max(255)
                 .required('Nombre es un campo requerido')
                 .min(3),
+            price: Yup
+                .number()
+                .min(1, "Debe costar cierto valor."),
+            quantity: Yup
+                .number()
+                .min(1, "Debe tener mas de 0 valor")
         }),
 
         onSubmit: (value) => saveProduct(value, productId)
@@ -224,6 +231,27 @@ const Page = () => {
                                                     variant="outlined"
                                                 />
                                             </Grid>
+
+                                            <Grid
+                                                item
+                                                md={6}
+                                                xs={12}
+                                            >
+                                                <TextField
+                                                    fullWidth
+                                                    label="Precio de capital"
+                                                    name="equityPrice"
+                                                    type={'number'}
+
+                                                    error={Boolean(formik.touched.equityPrice && formik.errors.equityPrice)}
+                                                    helperText={formik.touched.equityPrice && formik.errors.equityPrice}
+                                                    value={formik.values.equityPrice}
+                                                    onChange={formik.handleChange}
+
+                                                    variant="outlined"
+                                                />
+                                            </Grid>
+
                                             <Grid
                                                 item
                                                 md={6}
@@ -242,24 +270,6 @@ const Page = () => {
 
 
                                                     variant="outlined"
-                                                />
-                                            </Grid>
-                                            <Grid
-                                                item
-                                                md={6}
-                                                xs={12}
-                                            >
-                                                <FormControlLabel
-                                                    control={(
-                                                        <Checkbox
-                                                            color="primary"
-                                                            name='uniquePiece'
-
-                                                            checked={formik.values.uniquePiece && formik.values.quantity <= 1}
-                                                            onChange={formik.handleChange}
-                                                        />
-                                                    )}
-                                                    label="¿Es una pieza única?"
                                                 />
                                             </Grid>
                                         </Grid>

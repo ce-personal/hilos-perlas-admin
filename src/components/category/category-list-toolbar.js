@@ -14,7 +14,7 @@ import { Download as DownloadIcon } from '../../icons/download';
 import NextLink from 'next/link';
 
 
-export const CustomerListToolbar = (props) => (
+export const CategoryListToolbar = (props) => (
     <Box {...props}>
         <Box
             sx={{
@@ -29,7 +29,7 @@ export const CustomerListToolbar = (props) => (
                 sx={{ m: 1 }}
                 variant="h4"
             >
-                Personal asociado
+                Categoría de productos
             </Typography>
             <Box sx={{ m: 1 }}>
                 <Button
@@ -47,14 +47,14 @@ export const CustomerListToolbar = (props) => (
                     Exportar
                 </Button>
                 <NextLink
-                    href="/Account/Register"
+                    href="/Category/Create"
                     passHref
                 >
                     <Button
                         color="primary"
                         variant="contained"
                     >
-                        Agregar personal
+                        Agregar categoría
                     </Button>
                 </NextLink>
             </Box>
@@ -77,7 +77,7 @@ export const CustomerListToolbar = (props) => (
                                     </InputAdornment>
                                 )
                             }}
-                            placeholder="Buscar personal"
+                            placeholder="Buscar una categoría"
                             variant="outlined"
                             disabled
                         />

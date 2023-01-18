@@ -8,7 +8,7 @@ const Page = () => (
   <>
     <Head>
       <title>
-        Settings | De hilos y perlas
+        Configuración | De hilos y perlas
       </title>
     </Head>
     <Box
@@ -23,7 +23,7 @@ const Page = () => (
           sx={{ mb: 3 }}
           variant="h4"
         >
-          Settings
+          Configuraciones
         </Typography>
         <SettingsNotifications />
         <Box sx={{ pt: 3 }}>

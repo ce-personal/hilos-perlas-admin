@@ -10,9 +10,21 @@ import {
     TextField
 } from '@mui/material';
 
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+
 
 export const AccountProfileDetails = (props) => {
     const form = props.form;
+
+    const [showPassword, setShowPassword] = useState(false);
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
 
     return (
         <form
@@ -69,9 +81,47 @@ export const AccountProfileDetails = (props) => {
                                 variant="outlined"
                             />
                         </Grid>
+
                         <Grid
                             item
                             md={12}
+                            xs={12}
+                        >
+                            <TextField
+                                fullWidth
+                                
+                                label="Contraseña"
+                                name="password"
+
+                                type={showPassword ? 'text' : 'password'}
+                                InputProps={{
+                                    
+                                    endAdornment: 
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                            edge="end"
+                                            >
+                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                }}
+
+                                error={Boolean(form.touched.password && form.errors.password)}
+                                helperText={form.touched.password && form.errors.password}
+                                value={form.values.password}
+                                onChange={form.handleChange}
+
+                                variant="outlined"
+                            />
+                        </Grid>
+
+
+                        <Grid
+                            item
+                            md={6}
                             xs={12}
                         >
                             <TextField
@@ -90,7 +140,7 @@ export const AccountProfileDetails = (props) => {
                         </Grid>
                         <Grid
                             item
-                            md={12}
+                            md={6}
                             xs={12}
                         >
                             <TextField

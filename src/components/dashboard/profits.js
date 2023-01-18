@@ -2,7 +2,7 @@ import { Avatar, Box, Card, CardContent, Grid, Typography } from '@mui/material'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import PeopleIcon from '@mui/icons-material/PeopleOutlined';
 
-export const TotalCustomers = (props) => (
+export const Profits = (props) => (
   <Card {...props}>
     <CardContent>
       <Grid
@@ -16,13 +16,13 @@ export const TotalCustomers = (props) => (
             gutterBottom
             variant="overline"
           >
-            TOTAL CUSTOMERS
+            Ganancia
           </Typography>
           <Typography
             color="textPrimary"
             variant="h4"
           >
-            1,6k
+            C$ {props.profits || "--"}
           </Typography>
         </Grid>
         <Grid item>
@@ -51,13 +51,13 @@ export const TotalCustomers = (props) => (
             mr: 1
           }}
         >
-          16%
+          10%
         </Typography>
         <Typography
           color="textSecondary"
           variant="caption"
         >
-          Since last month
+          Según inversión
         </Typography>
       </Box>
     </CardContent>
