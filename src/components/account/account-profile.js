@@ -9,14 +9,6 @@ import {
     Typography
 } from '@mui/material';
 
-const user = {
-    avatar: '/static/images/avatars/avatar_6.png',
-    city: 'Los Angeles',
-    country: 'USA',
-    jobTitle: 'Senior Developer',
-    name: 'Katarina Smith',
-    timezone: 'GTM-7'
-};
 
 import { appFireBase } from './../../utils/register-firebase';
 import { getDownloadURL, getStorage, ref as refFire, uploadBytes } from "firebase/storage";
@@ -25,6 +17,7 @@ import { useEffect, useState } from 'react';
 
 export const AccountProfile = (props) => {
     const [cover, setCover] = useState("");
+    const [user, setUser] = useState({});
 
     const createInputToImage = () => {
         const input = document.createElement("input");
@@ -51,7 +44,8 @@ export const AccountProfile = (props) => {
     
     useEffect(() => {
         init();
-    })
+
+    }, [])
     
     return (
         <Card {...props}>

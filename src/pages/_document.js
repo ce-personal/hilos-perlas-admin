@@ -49,6 +49,8 @@ class CustomDocument extends Document {
             name="theme-color"
             content="#111827"
           />
+
+
         </Head>
         <body>
         <Main />

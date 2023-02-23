@@ -1,8 +1,6 @@
 import { Doughnut } from 'react-chartjs-2';
 import { Box, Card, CardContent, CardHeader, Divider, Typography, useTheme } from '@mui/material';
-import LaptopMacIcon from '@mui/icons-material/LaptopMac';
-import PhoneIcon from '@mui/icons-material/Phone';
-import TabletIcon from '@mui/icons-material/Tablet';
+import { orderStatus, orderColor } from '../../__mocks__/order';
 
 export const TrafficByOrders = (props) => {
     const theme = useTheme();
@@ -10,19 +8,19 @@ export const TrafficByOrders = (props) => {
     const data = {
         datasets: [
             {
-                data: [12, 15, 22, 10],
-                backgroundColor: ['#3F51B5', '#e53935', '#FB8C00', '#000'],
+                data: props.porcentageOrder.map(a => (a.cantidad / a.cantidadTotal) * 100),
+                backgroundColor: orderColor,
                 borderWidth: 8,
                 borderColor: '#FFFFFF',
                 hoverBorderColor: '#FFFFFF'
             }
         ],
-        labels: ['Solicitados', 'Enviado', 'Entregados', 'Rechazado']
+        labels: orderStatus
     };
 
     const options = {
         animation: false,
-        cutoutPercentage: 80,
+        cutoutPercentage: 100,
         layout: { padding: 0 },
         legend: {
             display: false
@@ -42,31 +40,8 @@ export const TrafficByOrders = (props) => {
         }
     };
 
-    const devices = [
-        {
-            title: 'Solicitados',
-            value: 12,
-            color: '#3F51B5'
-        },
-        {
-            title: 'Enviado',
-            value: 15,
-            color: '#E53935'
-        },
-        {
-            title: 'Entregados',
-            value: 23,
-            color: '#FB8C00'
-        },
-        {
-            title: 'Rechazado',
-            value: 12,
-            color: '#FB8C00'
-        }
-    ];
-
     return (
-        <Card {...props}>
+        <Card>
             <CardHeader title="Estado de los pedidos" />
             <Divider />
             <CardContent>
@@ -87,13 +62,9 @@ export const TrafficByOrders = (props) => {
                         gridTemplateColumns: '1fr 1fr'
                     }}
                 >
-                    {devices.map(({
-                        color,
-                        title,
-                        value
-                    }) => (
+                    {props.porcentageOrder.map(a => (
                         <Box
-                            key={title}
+                            key={a.name}
                             sx={{
                                 p: 1,
                                 textAlign: 'center'
@@ -102,15 +73,14 @@ export const TrafficByOrders = (props) => {
                             <Typography
                                 color="textPrimary"
                                 variant="body1"
+                                style={{ textTransform: 'capitalize' }}
                             >
-                                {title}
+                                {a.name.split(/(?=[A-Z])/).join(" ")}
                             </Typography>
                             <Typography
-                                style={{ color }}
                                 variant="h4"
                             >
-                                {value}
-                                %
+                                {(a.cantidad / (a.cantidadTotal || 1)) * 100}%
                             </Typography>
                         </Box>
                     ))}

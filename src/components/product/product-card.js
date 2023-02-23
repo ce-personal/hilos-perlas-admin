@@ -101,7 +101,7 @@ const StyledSecondaryFile = styled("div")({
 
 // ----------------------------------------------------------------------
 
-export default function ShopProductCard({ product }) {
+export default function ShopProductCard({ product, quantityBuy, buttonInfo }) {
     const { name, price, status, id, isEditable } = product.product;
 
     const [cover, setCover] = useState();
@@ -159,13 +159,13 @@ export default function ShopProductCard({ product }) {
 
     const init = () => {        
         if (loading) return;
-        if (product.files.length > 0) setLoading(true);
+        if ((product.files || []).length > 0) setLoading(true);
         // if (product != null && !product.files.find(a => a.isDefault)) setLoading(true);
 
-        const coverPrincipal = product.files.find(a => a.isItMainFile)?.stringFile; 
+        const coverPrincipal = (product.files || []).find(a => a.isItMainFile)?.stringFile; 
         setCover(coverPrincipal);
 
-        const coverSecundary = product.files.filter(a => !a.isItMainFile);
+        const coverSecundary = (product.files || []).filter(a => !a.isItMainFile);
         setSecondaryFile(coverSecundary.map(a => { return { cover: a.stringFile } }));
     };
 
@@ -174,15 +174,17 @@ export default function ShopProductCard({ product }) {
         init();
     });
 
+    console.log(isEditable)
+
     return (
         <Card sx={{ overflow: 'initial' }}>
             <div style={{ position: 'relative' }}>
                 <StyledHoverProduct onClick={createInputForImage} className={!isEditable ? 'isEditable' : ''}>
                     <Box sx={{ pt: '100%', position: 'relative' }}>
-                        {status && (
+                        {quantityBuy && (
                             <Label
                                 variant="filled"
-                                color={(status === 'sale' && 'error') || 'info'}
+                                color={'info'}
                                 sx={{
                                     zIndex: 9,
                                     top: 16,
@@ -191,7 +193,7 @@ export default function ShopProductCard({ product }) {
                                     textTransform: 'uppercase',
                                 }}
                             >
-                                {status}
+                                {quantityBuy}
                             </Label>
                         )}
 
@@ -223,7 +225,7 @@ export default function ShopProductCard({ product }) {
                     </Typography>
 
                     {
-                        !isEditable 
+                        isEditable != false 
                             ? 
                                 <NextLink href={`/Product/Edit?ProductId=${id}`}>
                                     <Button
@@ -234,7 +236,7 @@ export default function ShopProductCard({ product }) {
                                     </Button>
                                 </NextLink>
                             :
-                                null
+                                buttonInfo
                     }
                 </Stack>
             </Stack>

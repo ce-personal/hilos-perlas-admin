@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 
 import axios from 'axios';
 import { getProducts } from './../../__mocks__/products';
-import env from './../../__mocks__/env';
 
 // ----------------------------------------------------------------------
 
@@ -22,7 +21,7 @@ export default function ProductList({ ...other }) {
 
     useEffect(() => {
         loadProducts();
-    });
+    }, []);
 
     return (
         <Grid container spacing={3} sx={{ paddingRight: '24px' }} {...other}>

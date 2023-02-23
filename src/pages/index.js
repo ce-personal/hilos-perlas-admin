@@ -10,17 +10,24 @@ import { Losses } from '../components/dashboard/iosses';
 
 import { Sales } from '../components/dashboard/sales';
 import { TrafficByOrders } from '../components/dashboard/traffic-by-orders';
-import { LatestProducts } from '../components/dashboard/latest-products';
+import { MostPurchasedProduct } from '../components/dashboard/most-purchased-product';
 import { LatestOrders } from '../components/dashboard/latest-orders';
 import { useEffect, useState } from 'react';
 
-import { getInformationForBudget } from './../__mocks__/dashboard';
+import { getInformationForBudget, getCountOrderByWeek, getPorcentageByOrder, getListOfBestSellers, getLastestOrder } from './../__mocks__/dashboard';
 
 const Page = () => {
     const [infoBudget, setInfoBudget] = useState({});
+    const [countOrder, setCountOrder] = useState([]);
+    const [porcentageOrder, setPorcentageOrder] = useState([]);
+    const [bestSellers, setBestSellers] = useState([]);
+    const [lastestOrder, setLastestOrder] = useState([]);
 
     useEffect(() => {
         getInformationForBudget().then(a => setInfoBudget(a));
+        getCountOrderByWeek().then(a => setCountOrder(a));
+        getPorcentageByOrder().then(a => setPorcentageOrder(a));
+        getListOfBestSellers().then(a => setBestSellers(a));
     }, []);
 
     return (
@@ -48,7 +55,7 @@ const Page = () => {
                         </Grid>
 
                         <Grid item xl={3} lg={3} sm={6} xs={12}>
-                            <Profits profits={infoBudget.profits}/>
+                            <Profits profits={infoBudget.profits} income={infoBudget.income}/>
                         </Grid>
 
                         <Grid item xl={3} lg={3} sm={6} xs={12}>
@@ -60,19 +67,19 @@ const Page = () => {
 
 
                         <Grid item lg={8} md={12} xl={9} xs={12}>
-                            <Sales />
+                            <Sales countOrder={countOrder}/>
                         </Grid>
 
                         <Grid item lg={4} md={6} xl={3} xs={12}>
-                            <TrafficByOrders sx={{ height: '100%' }} />
+                            <TrafficByOrders porcentageOrder={porcentageOrder} sx={{ height: '100%' }} />
                         </Grid>
 
                         <Grid item lg={4} md={6} xl={3} xs={12}>
-                            <LatestProducts sx={{ height: '100%' }} />
+                            <MostPurchasedProduct bestSellers={bestSellers} sx={{ height: '100%' }} />
                         </Grid>
 
                         <Grid item lg={8} md={12} xl={9} xs={12}>
-                            <LatestOrders />
+                            <LatestOrders lastestOrder={lastestOrder}/>
                         </Grid>
                     </Grid>
                 </Container>

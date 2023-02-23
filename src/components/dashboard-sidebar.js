@@ -10,6 +10,7 @@ import { User as UserIcon } from '../icons/user';
 import { Users as UsersIcon } from '../icons/users';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
+import { List } from '@mui/icons-material';
 
 const items = [
     {
@@ -28,10 +29,20 @@ const items = [
         title: 'Productos'
     },
     {
-        href: '/Account',
-        icon: (<UserIcon fontSize="small" />),
-        title: 'Mi cuenta'
+        href: '/Product/Parts',
+        icon: (<SelectorIcon fontSize='small'/>),
+        title: 'Partes'
     },
+    {
+        href: '/Order',
+        icon: (<ShoppingBagIcon  />),
+        title: 'Pedidos'
+    },
+    // {
+    //     href: '/Account',
+    //     icon: (<UserIcon fontSize="small" />),
+    //     title: 'Mi cuenta'
+    // },
     // {
     //     href: '/Category',
     //     icon: (<CogIcon fontSize="small" />),

@@ -15,9 +15,12 @@ import { useEffect, useState } from 'react';
 
 import MuiAlert from '@mui/material/Alert';
 
+
+
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
+
 
 const Page = () => {
     const [saved, setSaved] = useState(false);
@@ -49,6 +52,7 @@ const Page = () => {
     const init = async () => {
         const userAdmin = JSON.parse(localStorage.getItem("userLogin"));
         const response = await axios.get(`${env.API_URL}/Account/GetProfileById?userAdminId=${userAdmin.id}`);
+        debugger
 
         if (response.data.userAdmin.phoneNumber == null) response.data.userAdmin.phoneNumber = ""; 
         if (response.data.file != null) response.data.userAdmin.stringFile = response.data.file.stringFile;

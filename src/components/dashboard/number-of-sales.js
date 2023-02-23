@@ -23,7 +23,7 @@ export const NumberOfSale = (props) => (
                         color="textPrimary"
                         variant="h4"
                     >
-                        {props.numberOfSale || "--"}
+                        {props.numberOfSale  || "--"}
                     </Typography>
                 </Grid>
                 <Grid item>

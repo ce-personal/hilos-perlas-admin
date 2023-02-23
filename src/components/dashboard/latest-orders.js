@@ -1,5 +1,3 @@
-import { format } from 'date-fns';
-import { v4 as uuid } from 'uuid';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
     Box,
@@ -11,142 +9,123 @@ import {
     TableCell,
     TableHead,
     TableRow,
-    TableSortLabel,
-    Tooltip
 } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { SeverityPill } from '../severity-pill';
+import moment from 'moment';
 
-const orders = [
-    {
-        id: uuid(),
-        ref: 'CDD1049',
-        amount: 30.5,
-        customer: {
-            name: 'Ekaterina Tankova'
-        },
-        createdAt: 1555016400000,
-        status: 'pending'
-    },
-    {
-        id: uuid(),
-        ref: 'CDD1048',
-        amount: 25.1,
-        customer: {
-            name: 'Cao Yu'
-        },
-        createdAt: 1555016400000,
-        status: 'delivered'
-    },
-    {
-        id: uuid(),
-        ref: 'CDD1047',
-        amount: 10.99,
-        customer: {
-            name: 'Alexa Richardson'
-        },
-        createdAt: 1554930000000,
-        status: 'refunded'
-    },
-    {
-        id: uuid(),
-        ref: 'CDD1046',
-        amount: 96.43,
-        customer: {
-            name: 'Anje Keizer'
-        },
-        createdAt: 1554757200000,
-        status: 'pending'
-    },
-    {
-        id: uuid(),
-        ref: 'CDD1045',
-        amount: 32.54,
-        customer: {
-            name: 'Clarke Gillebert'
-        },
-        createdAt: 1554670800000,
-        status: 'delivered'
-    },
-    {
-        id: uuid(),
-        ref: 'CDD1044',
-        amount: 16.76,
-        customer: {
-            name: 'Adam Denisov'
-        },
-        createdAt: 1554670800000,
-        status: 'delivered'
-    }
-];
+import NextLink from 'next/link';
 
-export const LatestOrders = (props) => (
-    <Card {...props}>
-        <CardHeader title="Últimos pedidos" />
-        <PerfectScrollbar>
-            <Box sx={{ minWidth: 800 }}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>
-                                Referencia 
-                            </TableCell>
-                            <TableCell>
-                                Cliente
-                            </TableCell>
-                            <TableCell>
-                                Fecha de entrega
-                            </TableCell>
-                            <TableCell>
-                                Estado
-                            </TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {orders.map((order) => (
-                            <TableRow
-                                hover
-                                key={order.id}
-                            >
+
+import { getListButtonByOrder, orderStatus, postNextStepOrderByOrderId } from "./../../__mocks__/order";
+import { getLastestOrder } from "./../../__mocks__/dashboard";
+
+import { useEffect, useState } from 'react';
+
+
+export const LatestOrders = (props) => {
+    const [orders, setLastestOrder] = useState(props.lastestOrder || [])
+
+    const updateOrderLine = async(orderId) => {
+        const response = await postNextStepOrderByOrderId(orderId);
+        if (response != 200) return;
+
+        getLastestOrder().then(a => setLastestOrder(a));
+
+        alert("Cambio de estado realizado de forma correcta")
+    };
+
+    window.updateOrderLine = updateOrderLine;
+
+
+    useEffect(() => {
+        getLastestOrder().then(a => setLastestOrder(a));
+    }, [])
+
+
+    return (
+        <Card>
+            <CardHeader title="Últimos pedidos" />
+            <PerfectScrollbar>
+                <Box sx={{ minWidth: 800 }}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
                                 <TableCell>
-                                    {order.ref}
+                                    Cliente
                                 </TableCell>
+                                
                                 <TableCell>
-                                    {order.customer.name}
+                                    Fecha de entrega
                                 </TableCell>
+                                
                                 <TableCell>
-                                    {format(order.createdAt, 'dd/MM/yyyy')}
+                                    Estado
                                 </TableCell>
-                                <TableCell>
-                                    <SeverityPill
-                                        color={(order.status === 'delivered' && 'success')
-                                            || (order.status === 'refunded' && 'error')
-                                            || 'warning'}
-                                    >
-                                        {order.status}
-                                    </SeverityPill>
-                                </TableCell>
+
+                                <TableCell></TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </Box>
-        </PerfectScrollbar>
-        <Box
-            sx={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-                p: 2
-            }}
-        >
-            <Button
-                color="primary"
-                endIcon={<ArrowRightIcon fontSize="small" />}
-                size="small"
-                variant="text"
+                        </TableHead>
+                        <TableBody>
+                            {orders.map((order) => (
+                                <TableRow
+                                    hover
+                                    key={order.id}
+                                >
+                                    <TableCell>
+                                        {order.name}
+                                    </TableCell>
+                                    <TableCell>
+                                        {moment(order.date).format("DD/MM/yyyy")}
+                                    </TableCell>
+                                    <TableCell align='center'>
+                                        <SeverityPill
+                                            color="success"
+                                            sx={{ textTransform: 'capitalize' }}
+                                        >
+                                            {orderStatus[order.status]}
+                                        </SeverityPill>
+                                    </TableCell>
+
+                                    <TableCell align="right">
+                                        <NextLink href={`/Order/Details?orderId=${order.id}`}>
+                                            <Button variant='outlined' sx={{ marginRight: '5px' }}>Detalle</Button>
+                                        </NextLink>
+
+                                        {
+                                            getListButtonByOrder(order) != null 
+                                            ?
+                                                <Button variant='outlined' onClick={() => getListButtonByOrder(order).callback()}>
+                                                    {getListButtonByOrder(order).text}
+                                                </Button>
+                                            : 
+                                                null
+                                        }
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </Box>
+            </PerfectScrollbar>
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    p: 2
+                }}
             >
-                Ir a vista
-            </Button>
-        </Box>
-    </Card>
-);
+                <NextLink href="/Order">
+                    <Button
+                        color="primary"
+                        endIcon={<ArrowRightIcon fontSize="small" />}
+                        size="small"
+                        variant="text"
+                    >   
+                        Ir a vista
+                    </Button>
+                </NextLink>
+            </Box>
+        </Card>
+    );
+}

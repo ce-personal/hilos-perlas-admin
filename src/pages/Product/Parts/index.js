@@ -1,14 +1,14 @@
 import Head from 'next/head';
-import { Box, Container, Grid, Pagination } from '@mui/material';
-import { ProductListToolbar } from '../../components/product/product-list-toolbar';
-import { DashboardLayout } from '../../components/dashboard-layout';
-import ProductList from '../../components/product/product-list';
+import { Box, Container, Grid } from '@mui/material';
+import { ParstListToolbar } from '../../../components/product/parts/parts-list-toolbar';
+import { DashboardLayout } from '../../../components/dashboard-layout';
+import PartList from '../../../components/product/parts/part-list';
 
 const Page = () => (
     <>
         <Head>
             <title>
-                Lista de productos | De hilos y perlas
+                Parte de los productos | De hilos y perlas
             </title>
         </Head>
         <Box
@@ -19,7 +19,7 @@ const Page = () => (
             }}
         >
             <Container maxWidth={false}>
-                <ProductListToolbar />
+                <ParstListToolbar />
 
                 <Box sx={{ pt: 3 }}>
                     <Grid
@@ -27,7 +27,7 @@ const Page = () => (
                         spacing={3}
                         sx={{ maxWidth: '1400px', margin: 'auto' }}
                     >
-                        <ProductList />
+                        <PartList />
                     </Grid>
                 </Box>
             </Container>

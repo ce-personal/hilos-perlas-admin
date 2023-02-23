@@ -1,10 +1,24 @@
 import { Bar } from 'react-chartjs-2';
 import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme } from '@mui/material';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+
+import moment from 'moment';
 
 export const Sales = (props) => {
     const theme = useTheme();
+
+
+    const labels = [];
+
+
+    // load labels 
+    const date = new Date();
+    date.setDate(date.getDate() - 6);
+
+    for (let index = 0; index < 7; index++) {
+        labels.push(moment(date).format("DD MMM", 'es'));
+        date.setDate(date.getDate() + 1);
+    }
+
 
     const data = {
         datasets: [
@@ -14,12 +28,12 @@ export const Sales = (props) => {
                 barThickness: 12,
                 borderRadius: 4,
                 categoryPercentage: 0.5,
-                data: [18, 5, 19, 27, 29, 19, 20],
+                data: props.countOrder,
                 label: 'Ventas por días',
-                maxBarThickness: 11
+                maxBarThickness: 7
             },
         ],
-        labels: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug', '7 aug']
+        labels
     };
 
     const options = {
@@ -72,11 +86,10 @@ export const Sales = (props) => {
     };
 
     return (
-        <Card {...props}>
+        <Card>
             <CardHeader
                 action={(
                     <Button
-                        // endIcon={<ArrowDropDownIcon fontSize="small" />}
                         size="small"
                     >
                         Ultimos 7 dias

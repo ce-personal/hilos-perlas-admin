@@ -33,7 +33,6 @@ const Login = (props) => {
             props.signIn(data.userAdmin);
             Router.push('/').catch(console.error);
         }
-
     };
 
 
