@@ -138,7 +138,7 @@ const Page = () => {
                                     <Grid key={product.product.id} item xs={12} sm={6} md={3}>
                                         <ShopProductCard 
                                             buttonInfo={
-                                                <NextLink href={`/Product/Edit?ProductId=${product.product.id}&readonly=true`}>
+                                                <NextLink href={`/Product/Edit?ProductId=${product.product.id}`}>
                                                     <Button
                                                         color="primary"
                                                         variant="contained"

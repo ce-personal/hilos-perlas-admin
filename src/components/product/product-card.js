@@ -163,6 +163,7 @@ export default function ShopProductCard({ product, quantityBuy, buttonInfo }) {
         // if (product != null && !product.files.find(a => a.isDefault)) setLoading(true);
 
         const coverPrincipal = (product.files || []).find(a => a.isItMainFile)?.stringFile; 
+
         setCover(coverPrincipal);
 
         const coverSecundary = (product.files || []).filter(a => !a.isItMainFile);
@@ -172,9 +173,8 @@ export default function ShopProductCard({ product, quantityBuy, buttonInfo }) {
 
     useEffect(() => {
         init();
-    });
+    }, []);
 
-    console.log(isEditable)
 
     return (
         <Card sx={{ overflow: 'initial' }}>

@@ -44,8 +44,8 @@ const ListImage = (props) => {
                 {(props.listImage || []).map((item) => (
                     <ImageListItem key={item.id}>
                         <img
-                            src={`${item.fileMain.stringFile}?w=248&fit=crop&auto=format`}
-                            srcSet={`${item.fileMain.stringFile}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                            src={`${item.mainFile.stringFile}?w=248&fit=crop&auto=format`}
+                            srcSet={`${item.mainFile.stringFile}?w=248&fit=crop&auto=format&dpr=2 2x`}
                             loading="lazy"
                             style={{ borderRadius: '8px', cursor: 'pointer' }}
 

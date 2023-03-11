@@ -1,7 +1,7 @@
 import axios from 'axios';
 import env from './../__mocks__/env';
 
-export const postCreateNewPart = async (value) => {
+export const postCreateNewPart = async (value, part) => {
     const formData = new FormData();
 
     for (const key in value) {
@@ -9,22 +9,37 @@ export const postCreateNewPart = async (value) => {
     }
 
 
+    const formDataFile = new FormData();
+    formDataFile.append("stringFile", value.stringFileMain);
+    formDataFile.append("isItMainFile", true);
+
+    const file = await axios.post(`${env.API_URL}/File/Create`, formDataFile);
+    formData.append("mainFileId", file.data.id);
+    
     var response = await axios.post(`${env.API_URL}/Part/PostCreateNewPart`, formData);    
-    await updateFilePart(response.data.id, value.stringFileMain, true);
-    await updateFilePart(response.data.id, value.stringFileSecondary, false);
-
-
-    return response;
+    return response.data;
 };
 
 
-export const updateFilePart = async (partId, fileString, isMain) => {
+export const postCreateFile = async (value) => {
     const formData = new FormData();
-    formData.append("partId", partId);
-    formData.append("fileString", fileString);
-    formData.append("isMain", isMain);
+    formData.append("stringFile", value.stringFile);
+    formData.append("isItMainFile", 'true');
+    
 
-    await axios.post(`${env.API_URL}/Part/PostUploadFileByPart`, formData);
+    const file = await axios.post(`${env.API_URL}/File/Create`, formData);
+    return file.data;
+};
+
+export const postCreatePartFile = async (value) => {
+    const formData = new FormData();
+
+    for (const key in value) {
+        formData.append(key, value[key]);
+    }
+
+    const file = await axios.post(`${env.API_URL}/Part/PostUploadFilePartByPartId`, formData);
+    return file.data
 };
 
 
